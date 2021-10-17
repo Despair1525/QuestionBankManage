@@ -123,11 +123,7 @@ public static void clearScreen() {
                     }
                     break;
                 }
-//                case 2: {
-//                    a.setNameInfo(id);
-//                    a.changeData(id);
-//                    break;
-//                }
+
                 case 2: {
                     LP.add();
 
@@ -138,17 +134,17 @@ public static void clearScreen() {
                         System.exit(0);
                     }
                 }
-                case 3:{
-                     LP.delete();
-                    check = check("Do you want to continue process ? (Y/N) : ");
-                    if (check) {
-                        break;
-                    } else {
-                        System.exit(0);
-                    }
-                }
+//                case 3:{
+//                     LP.delete();
+//                    check = check("Do you want to continue process ? (Y/N) : ");
+//                    if (check) {
+//                        break;
+//                    } else {
+//                        System.exit(0);
+//                    }
+//                }
                 case 4: {
-                    LP.display();
+                    LP.listOfProblem.display();
                     while (true) {
                         LP.case5();
                         if (check("Do you want to continue process ? (Y/N) : ")) {

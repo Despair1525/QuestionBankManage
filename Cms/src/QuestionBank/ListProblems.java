@@ -20,18 +20,18 @@ public class ListProblems {
     public RedBlackTree listOfProblem = new RedBlackTree();
     public final Random generator = new Random();
 
-    public void sortList(ArrayList<Problem> list) {
-        Collections.sort(list, new Comparator<Problem>() {
-            @Override
-            public int compare(Problem o1, Problem o2) {
-                return o1.getCategory().compareToIgnoreCase(o2.getCategory());
-            }
-        });
-    }
-
-    public void sort() throws IOException {
-        sortList(list);
-    }
+//    public void sortList(ArrayList<Problem> list) {
+//        Collections.sort(list, new Comparator<Problem>() {
+//            @Override
+//            public int compare(Problem o1, Problem o2) {
+//                return o1.getCategory().compareToIgnoreCase(o2.getCategory());
+//            }
+//        });
+//    }
+//
+//    public void sort() throws IOException {
+//        sortList(list);
+//    }
 
     int randomNum(int min, int max) {
         return generator.nextInt((max - min) + 1) + min;
@@ -86,22 +86,13 @@ public class ListProblems {
         FileWriter fw = new FileWriter(fname, false);
         PrintWriter pw = new PrintWriter(fw);
         Problem x;
-        sort();
+//        sort();
         for (int i = 0; i < list.size(); i++) {
             x = list.get(i);
             pw.printf("%5s | %10s | %10s | %10s |%10s|%10s|%.1f | %s\n", x.getId(), x.getDate(), x.getName(), x.getShortDes(), x.getAuthor(), x.getLink(), x.getMark(), x.getCategory());
         }
         fw.close();
         pw.close();
-    }
-
-    Boolean checkId(String id) {
-        for (int i = 0; i < list.size(); i++) {
-            if (id.compareTo(list.get(i).getId()) == 0) {
-                return false;
-            }
-        }
-        return true;
     }
 
     public void case5() throws IOException {
@@ -129,14 +120,6 @@ public class ListProblems {
                 }else{
                     showProblem(r);
                 };
-//                if (checkId(ID)) {
-//                    System.out.println("ID not found !");
-//                    break;
-//                } else {
-//                    Problem r = getProblem(ID);
-//                    showProblem(r);
-//                    break;
-//                }
             }
             case 2: {
                 return;
@@ -194,324 +177,41 @@ public class ListProblems {
 
     }
 
-    int FindId(String id) {
-        for (int i = 0; i < list.size(); i++) {
-            if (id.compareTo(list.get(i).getId()) == 0) {
-                return i;
-            }
-        }
-        return 0;
-    }
+   
 
-    public void delete() throws IOException {
-        String xId;
-        Scanner input = new Scanner(System.in);
-        System.out.print("Enter Id: ");
-        xId = input.nextLine().toUpperCase();
-        if (!checkId(xId)) {
-            int x = FindId(xId);
-            list.remove(x);
-            saveFile();
-            System.out.println(" |Delete sucssess !|");
-        } else {
-            System.out.println("Id not Found !");
-        }
-    }
+//    public void delete() throws IOException {
+//        String xId;
+//        Scanner input = new Scanner(System.in);
+//        System.out.print("Enter Id: ");
+//        xId = input.nextLine().toUpperCase();
+//        if (!checkId(xId)) {
+//            int x = FindId(xId);
+//            list.remove(x);
+//            saveFile();
+//            System.out.println(" |Delete sucssess !|");
+//        } else {
+//            System.out.println("Id not Found !");
+//        }
+//    }
+//
+//    public boolean check(String mess) {
+//        Scanner input = new Scanner(System.in);
+//        String choice;
+//        while (true) {
+//            System.out.print(mess);
+//            choice = input.nextLine().toUpperCase().trim();
+//            if (choice.compareTo("Y") == 0 || choice.compareTo("1") == 0) {
+//                return true;
+//            } else if (choice.compareTo("N") == 0 || choice.compareTo("0") == 0) {
+//                return false;
+//            } else {
+//                System.out.println("Please enter again !");
+//            }
+//        }
+//
+//    }
 
-    public boolean check(String mess) {
-        Scanner input = new Scanner(System.in);
-        String choice;
-        while (true) {
-            System.out.print(mess);
-            choice = input.nextLine().toUpperCase().trim();
-            if (choice.compareTo("Y") == 0 || choice.compareTo("1") == 0) {
-                return true;
-            } else if (choice.compareTo("N") == 0 || choice.compareTo("0") == 0) {
-                return false;
-            } else {
-                System.out.println("Please enter again !");
-            }
-        }
-
-    }
-
-    public void update() throws IOException {
-        String xId, xDate, xName, xShortDes, xLink, xAuthor;
-        double xMark;
-        int xCategory;
-        int choice;
-        Scanner input = new Scanner(System.in);
-        System.out.print("Enter Id: ");
-        xId = input.nextLine().toUpperCase();
-        if (!checkId(xId)) {
-            int x = FindId(xId);
-            Problem r = getProblem(xId);
-            System.out.println("======================================================================================================================================================");
-            showProblem(r);
-            while (true) {
-                System.out.println("----------------------------------------------");
-                System.out.printf("Chose data you want to change:\n");
-                System.out.printf("1.Id\n2.Date\n3.Name\n4.Short Description\n5.Link\n6.Author\n7.Mark\n");
-                System.out.printf("8.Category\n9.Change all information\n0.Exits\n");
-                while (true) {
-                    try {
-                        System.out.print("Your choice: ");
-                        choice = Integer.parseInt(input.nextLine().trim());
-                        break;
-                    } catch (NumberFormatException e) {
-
-                    }
-                }
-                if (choice == 0) {
-                    saveFile();
-                    break;
-                }
-
-                switch (choice) {
-                    case 1: {
-
-                        String yId = new String();
-                        while (true) {
-                            System.out.print("Enter new Id: ");
-                            yId = input.nextLine().toUpperCase();
-                            if (checkId(yId) || (yId.compareToIgnoreCase(xId) == 0)) {
-                                list.get(x).setId(yId);
-                                Contest con = new Contest();
-
-                                System.out.println("-------------------");
-                                System.out.println("  Update success !");
-                                System.out.println("-------------------");
-                                break;
-                            }
-                            System.out.println("Id had valid please try again !");
-                        }
-                        saveFile();
-                        break;
-                    }
-                    case 2: {
-                        System.out.print("Enter new Date: ");
-                        xDate = input.nextLine();
-                        list.get(x).setDate(xDate);
-                        System.out.println("-------------------");
-                        System.out.println("  Update success !");
-                        System.out.println("-------------------");
-                        break;
-                    }
-                    case 3: {
-                        System.out.print("Enter new Name: ");
-                        xName = input.nextLine();
-                        list.get(x).setName(xName);
-                        System.out.println("-------------------");
-                        System.out.println("  Update success !");
-                        System.out.println("-------------------");
-                        break;
-
-                    }
-                    case 4: {
-                        System.out.print("Enter new Short Description: ");
-                        xShortDes = input.nextLine();
-                        list.get(x).setShortDes(xShortDes);
-                        System.out.println("-------------------");
-                        System.out.println("  Update success !");
-                        System.out.println("-------------------");
-                        break;
-                    }
-                    case 5: {
-                        System.out.print("Enter new Link: ");
-                        xLink = input.nextLine();
-                        list.get(x).setLink(xLink);
-                        System.out.println("-------------------");
-                        System.out.println("  Update success !");
-                        System.out.println("-------------------");
-                        break;
-                    }
-                    case 6: {
-                        System.out.print("Enter new Author: ");
-                        xAuthor = input.nextLine();
-                        list.get(x).setAuthor(xAuthor);
-                        System.out.println("-------------------");
-                        System.out.println("  Update success !");
-                        System.out.println("-------------------");
-                        break;
-                    }
-                    case 7: {
-                        while (true) {
-                            try {
-                                System.out.println("Enter new Mark: ");
-                                xMark = Integer.parseInt(input.nextLine());
-                                list.get(x).setMark(xMark);
-                                System.out.println("-------------------");
-                                System.out.println("  Update success !");
-                                System.out.println("-------------------");
-                                break;
-                            } catch (Exception e) {
-                                System.out.println("Please entet number !");
-                            }
-                        }
-                        break;
-                    }
-                    case 8: {
-                        while (true) {
-                            try {
-                                System.out.println("(1.analysis,2.figure,3.Greedy algorithm,4.Dynamic programming,5.graph");
-                                System.out.print("Enter problem Category: ");
-                                xCategory = Integer.parseInt(input.nextLine());
-                                list.get(x).setCategory(xCategory);
-                                break;
-                            } catch (Exception e) {
-                                System.out.println("Please enter number in list !");
-                            }
-
-                        }
-                        break;
-                    }
-
-                    case 9: {
-                        showProblem(list.get(x));
-                        System.out.println("Change all Problem informations");
-                        System.out.println("Old id: " + list.get(x).getId());
-                        if (check("Do you want to change Id ?(Y/N): ")) {
-                            System.out.print("Enter new Id: ");
-                            String yId = input.nextLine().trim();
-                            if (checkId(yId) || (yId.compareToIgnoreCase(xId) == 0)) {
-                                list.get(x).setId(yId);
-                            } else {
-                                System.out.println("Id had valid please try again !");
-                            }
-                            saveFile();
-                            showProblem(list.get(x));
-                        }
-                        if (!check("Do you want to continue ?(Y/N): ")) {
-                            break;
-                        }
-
-                        System.out.println("Old date: " + list.get(x).getDate());
-                        if (check("Do you want to change date ?(Y/N): ")) {
-                            System.out.println("Day-Month-Year");
-
-                            while (true) {
-                                System.out.print("Enter new Date : ");
-                                xDate = input.nextLine().trim();
-                                if (checkDate(xDate)) {
-                                    list.get(x).setDate(xDate);
-                                    break;
-                                }
-                                System.out.println("Please enter right format !(Day-Month-Year)");
-
-                            }
-                            saveFile();
-                            showProblem(list.get(x));
-                        }
-                        if (!check("Do you want to continue ?(Y/N): ")) {
-                            break;
-                        }
-                        System.out.println("Old Problem's name: " + list.get(x).getName());
-                        if (check("Do you want to change Problem's name ?(Y/N): ")) {
-                            System.out.print("Enter new Problem's name : ");
-                            xName = input.nextLine().trim();
-                            list.get(x).setName(xName);
-                            saveFile();
-                            showProblem(list.get(x));
-                        }
-                        if (!check("Do you want to continue ?(Y/N): ")) {
-                            break;
-                        }
-                        System.out.println("Old description: " + list.get(x).getShortDes());
-                        if (check("Do you want to change Short Decription ?(Y/N): ")) {
-                            System.out.print("Enter new Short Decription : ");
-                            xShortDes = input.nextLine().trim();
-                            list.get(x).setShortDes(xShortDes);
-                            saveFile();
-                            showProblem(list.get(x));
-                        }
-                        if (!check("Do you want to continue ?(Y/N): ")) {
-                            break;
-                        }
-                        System.out.println("Old Problem's Link: " + list.get(x).getLink());
-                        if (check("Do you want to change Problem's Link ?(Y/N): ")) {
-                            while (true) {
-                                System.out.print("Enter new Link: ");
-                                xLink = input.nextLine().trim();
-                                if (xLink.contains("@")) {
-                                    list.get(x).setLink(xLink);
-                                    break;
-
-                                }
-                                System.out.println("Please enter mail !");
-                            }
-                            saveFile();
-                            showProblem(list.get(x));
-                        }
-                        if (!check("Do you want to continue ?(Y/N): ")) {
-                            break;
-                        }
-                        System.out.println("Old Problem Author: " + list.get(x).getAuthor());
-                        if (check("Do you want to change Problem's Author name ?(Y/N): ")) {
-                            System.out.print("Enter new Author: ");
-                            xAuthor = input.nextLine().trim();
-                            list.get(x).setAuthor(xAuthor);
-                            saveFile();
-                            showProblem(list.get(x));
-                        }
-                        if (!check("Do you want to continue ? (Y/N): ")){
-                            break;
-                        }
-                        System.out.println("Old Problem Mark: " + list.get(x).getMark());
-                        if (check("Do you want to change Problem's Author name ?(Y/N): ")) {
-                          while (true) {
-                            try {
-                                System.out.println("Enter new Mark: ");
-                                xMark = Integer.parseInt(input.nextLine());
-                                list.get(x).setMark(xMark);
-                                System.out.println("-------------------");
-                                System.out.println("  Update success !");
-                                System.out.println("-------------------");
-                                break;
-                            } catch (Exception e) {
-                                System.out.println("Please entet number !");
-                            }
-                        }
-                          if (!check("Do you want to continue ?(Y/N): ")) {
-                            break;
-                        }
-                          System.out.println("Old Problem Categories: " + list.get(x).getCategory());
-                        if (check("Do you want to change Problem's Categories ?(Y/N): ")) {
-                        while (true) {
-                            try {
-                                System.out.println("(1.analysis,2.figure,3.Greedy algorithm,4.Dynamic programming,5.graph");
-                                System.out.print("Enter problem Category: ");
-                                xCategory = Integer.parseInt(input.nextLine());
-                                list.get(x).setCategory(xCategory);
-                                break;
-                            } catch (Exception e) {
-                                System.out.println("Please enter number in list !");
-                            }
-
-                        }
-                        
-                        }
-                         System.out.println("Update Problem's Information sucessfully");
-                        if (!check("Do you want to continue ?(Y/N): ")) {
-                            break;
-                        }
-                        
-
-                        break;
-                    }
-                    }
-                    default: {
-                        System.out.println("Please enter number in list !");
-                        break;
-                    }
-
-                }
-            }
-        } else {
-            System.out.println("Id not Found !");
-        }
-
-    }
-
+    
     public boolean checkDate(String s) {
         String[] list = s.split("-");
         if (list.length != 3) {
@@ -543,9 +243,9 @@ public class ListProblems {
         double xMark;
         int xCategory;
         System.out.print("Enter problem Id: ");
-        xId = input.nextLine();
-
-        if (checkId(xId)) {
+        xId = input.nextLine().toUpperCase();
+        Problem r= listOfProblem.find(xId);
+        if (r==null) {
             try {
                 Contest lol = new Contest();
                 xDate = lol.date;
@@ -570,19 +270,11 @@ public class ListProblems {
             }
 
         } else {
-            System.out.println("");
             System.err.println("WARNING:Id problems had exits please enter another Id!");
-            System.out.println("");
         }
     }
 
-    public void display() {
-        System.out.println("------------------------------------------------------Question Bank--------------------------------------------------");
-        System.out.printf("%5s|%10s|%20s|%25s|%5s|%20s|%s\n", "ID", "Date", "Name", "Author", "Mark", "Category", "link");
-        for (int i = 0; i < list.size(); i++) {
-            System.out.print(list.get(i));
-        }
-    }
+
 
 /// Generate Data 
     public String GenerateCode() {

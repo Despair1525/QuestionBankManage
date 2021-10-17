@@ -169,7 +169,6 @@ public int compareProblem(String o,Problem A) {
     }
 public Node findNode(Node temp,String id){
     if(root == null || temp == null) return null;
-    System.out.println(temp.data.id);
     if(compareProblem(id, temp.data)==0)  return temp;
     if(compareProblem(id, temp.data)<0){
         return findNode(temp.left, id);
@@ -181,5 +180,20 @@ public Problem find(String ID){
     Node r= findNode(root, ID);
     if (r==null)return null;
     return r.data;
+};
+void firstTravel(Node temp){
+    if( temp == null) return;
+    System.out.print(temp.data);
+    firstTravel(temp.left);
+    firstTravel(temp.right);
+};
+public void display(){
+    System.out.println("------------------------------------------------------Question Bank--------------------------------------------------");
+//        System.out.printf("%5s|%10s|%20s|%25s|%5s|%20s|%s\n", "ID", "Date", "Name", "Author", "Mark", "Category", "link");
+    if(root == null) {
+        System.out.println("List is blank !");
+        return;
+    };
+    firstTravel(root);
 };
 };

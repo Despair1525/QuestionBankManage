@@ -17,6 +17,7 @@
   Z48 |   3-8-2020 | figure Problem5 | Special Shape,Name a three-dimensional shape that has the same width all around. |Nguyễn Đức My|CodeSource.com|4.0 | figure
   Z09 |  13-2-2020 | figure Problem6 | up side down,What letters, when written in lowercase, can be read the same upside down as right side up? |Bá Dương Huyền|Mathematics_for_new.com|3.0 | figure
   Y58 |  11-6-2020 | Greedy Problem15 | Given the four functions f1(n) = n100 , f2(n) = (1.2)n , f3(n) = 2n/2 , f4(n) = 3n/3..... which function will have the largest value for sufficiently large values of n |Nguyễn Thu Giang|Mathematics_for_new.com|3.0 | figure
+  H15 | 17-10-2021 |       manh | rat dep trai |      manh|  manh.com|2.0 | figure
   J37 |   3-2-2020 | graph Problem1 | Draw,To draw the graph of a line, the least number of points required is _____. |Bá Nguyệt Thương|http://w3school.com|3.0 | graph
   S46 |   9-2-2020 | graph Problem2 | Point,The point of intersection of co-ordinate axes is called ____. |Uchiha Lê Phúc|http://w3school.com|3.0 | graph
   L43 |   6-2-2020 | Greedy Problem1 | What is the missing number in the following sequence? 2, 12, 60, 240, 720, 1440, .... 0 |Uchiha Thu Thành|Mathematics_for_new.com|2.0 | Greedy algorithm
