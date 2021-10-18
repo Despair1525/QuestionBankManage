@@ -15,7 +15,6 @@ import java.util.StringTokenizer;
 public class Contest {
 
     public String id, nameMake;
-    public int totalMark;
     public String timeStamp = java.time.LocalTime.now().toString();
     public ArrayList<Problem> QuestionList = new ArrayList<Problem>();
     public String date = reverseDate(java.time.LocalDate.now().toString());
@@ -29,13 +28,7 @@ public class Contest {
 
     }
 
-    public int getTotalMark() {
-        return totalMark;
-    }
-
-    public void setTotalMark(int totalMark) {
-        this.totalMark = totalMark;
-    }
+  
 
     public Contest(String id, String nameMake, ArrayList<Problem> QuestionList) {
         this.id = id.trim();
@@ -98,23 +91,22 @@ public class Contest {
         this.QuestionList = QuestionList;
     }
 
-    public Contest GenerateContest(String name) throws IOException {
+    public Contest GenerateContest(String name,int num) throws IOException {
         a.loadFile();
         int r = 0;
         String idX = a.GenerateCode();
-        ArrayList<Problem> Lproblem = a.GenerateProblemList();
+        ArrayList<Problem> Lproblem = a.GenerateProblemList(num);
         for (Problem i : Lproblem) {
-            r += i.getMark();
+            r += 1;
         }
         Contest a = new Contest(idX, name, Lproblem);
-        a.setTotalMark(r);
         return a;
     }
 
     public void displayString(String s) {
         String list[] = s.split(" ");
         int cout = 0;
-        System.out.println("\t");
+        System.out.print("\t");
         for (int i = 0; i < list.length; i++) {
             System.out.print(list[i] + " ");
             cout++;
@@ -134,90 +126,32 @@ public class Contest {
         System.out.println("Date: " + getDate());
         System.out.println("Maker name: " + getNameMake());
         System.out.println("");
-        int r = 0;
         for (Problem i : QuestionList) {
             System.out.println("------------");
-            System.out.println("|Question " + cout + "| " + i.getName().toUpperCase());
+            System.out.println("|Question " + cout + "| " + i.id.toUpperCase());
             System.out.println("------------");
             System.out.print("\tDescription: ");
-            displayString(i.getShortDes());
+            displayString(i.name);
             System.out.println("");
-            System.out.println("\t\t\t\t|Mark:" + i.getMark());
             cout++;
-            r += i.getMark();
         }
-        System.out.println("Total: " + r);
         System.out.println("----------------------------------------------");
     }
 // --------------------Test Bank -------------------------
 //|Time Stamp| ID Test | Date  | Total Mark |  Maker Name  
 
-    public void addContest(Contest a) throws IOException {
-        FileWriter fw = new FileWriter("testBank.txt", true);
-        PrintWriter pw = new PrintWriter(fw);
-        pw.printf("%15s | %4s | %10s | %4d |%15s|%10s|%10s|%10s|%10s|%10s\n", timeStamp, a.getId(), a.getDate(), a.getTotalMark(), a.getNameMake(), a.getQuestionList().get(0).getId(), a.getQuestionList().get(1).getId(), a.getQuestionList().get(2).getId(), a.getQuestionList().get(3).getId(), a.getQuestionList().get(4).getId());
-        pw.close();
-    }
+   
 
-    public void displayList() throws FileNotFoundException, IOException {
-        FileReader fr = new FileReader("testBank.txt");
-        BufferedReader br = new BufferedReader(fr);
-        System.out.println("----------------------------------------------------------Test Bank ---------------------------------------------------------------------------------");
-        System.out.printf("%15s | %4s | %10s | %4s |%15s|%10s|%10s|%10s|%10s|%10s\n", "Time Stamp", "ID", "Date", "Mark", "NAME", "Question1", "Question2", "Question3", "Question4", "Question5");
-        while (true) {
-            String s = br.readLine();
-            if (s == null) {
-                break;
-            }
-            System.out.println(s);
-        }
-
-    }
-
-    public Contest getContest(ListProblems a) throws FileNotFoundException, IOException {
-        Scanner input = new Scanner(System.in);
-        Contest newCon = new Contest();
-        System.out.print("Enter the ID Contest: ");
-        String ID = input.nextLine();
-        FileReader fr = new FileReader("testBank.txt");
-        BufferedReader br = new BufferedReader(fr);
-        String nextt = br.readLine();
-        while (true) {
-            try {
-                String s = br.readLine();
-                if (s == null) {
-                    break;
-                }
-                String spe[] = s.split("[|]");
-                if (spe[1].trim().compareToIgnoreCase(ID) == 0) {
-                    ArrayList<Problem> List = new ArrayList<>();
-                    String ID1 = spe[5].trim();
-                    List.add(a.getProblem(ID1));
-                    String ID2 = spe[6].trim();
-                    List.add(a.getProblem(ID2));
-                    String ID3 = spe[7].trim();
-                    List.add(a.getProblem(ID3));
-                    String ID4 = spe[8].trim();
-                    List.add(a.getProblem(ID4));
-                    String ID5 = spe[9].trim();
-                    List.add(a.getProblem(ID5));
-                    newCon = new Contest(ID, spe[4], List);
-                }
-            } catch (Exception e) {
-            }
-        }
-        return newCon;
-    }
+   
 
     public void export() throws IOException {
         Scanner input = new Scanner(System.in);
         String name = new String();
         File file = null;
         boolean isCreat = false;
+        String Testname=this.id+ "Test.txt";
         try {
-            System.out.println("Enter file name: ");
-            name = input.nextLine();
-            file = new File("File Export" + "\\" + name + ".txt");
+            file = new File("test\\"+Testname);
             isCreat = file.createNewFile();
             if (isCreat) {
                 try (FileWriter fw = new FileWriter(file)) {
@@ -231,10 +165,10 @@ public class Contest {
                     int r = 0;
                     for (Problem i : QuestionList) {
                         pw.println("------------");
-                        pw.println("|Question " + cout + "| " + i.getName().toUpperCase());
+                        pw.println("|Question " + cout + "| " + i.getId().toUpperCase());
                         pw.println("------------");
                         pw.print("\tDescription: ");
-                        String list[] = i.getShortDes().split(" ");
+                        String list[] = i.name.split(" ");
                         int cout2 = 0;
                         for (int j = 0; j < list.length; j++) {
                             pw.print(list[j] + " ");
@@ -248,24 +182,24 @@ public class Contest {
                         }
 
                         pw.println("");
-                        pw.println("\t\t\t\t|Mark:" + i.getMark());
                         cout++;
-                        r += i.getMark();
+                        r += 1;
                     }
                     pw.println("Total: " + r);
                     pw.println("----------------------------------------------");
                     pw.close();
                 }
                 String dir= System.getProperty("user.dir");
+                System.out.println(dir);
                 System.out.println("||Save File Succsess !||");
-                System.out.println("File has been saved at: " +dir+ "\\File Export" + "\\" + name + ".txt");
+                System.out.println("File has been saved at: " +dir + "\\test\\" + Testname);
                 System.out.println("");
             } else {
                 System.out.println("File has exits !");
             }
 
         } catch (Exception e) {
-            System.out.print(e);
+            System.out.println(e);
         }
     }
 }

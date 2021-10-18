@@ -1,0 +1,102 @@
+--------------------TEST-----------------------------
+ID: N17
+Date: 18-10-2021
+Maker name: Phan Duc Manh
+
+------------
+|Question 1| PRO185
+------------
+	Description: Which of the following are legal enums 
+------------
+|Question 2| SSC2846
+------------
+	Description: In most soils, mineralization of soil organic matter is an 
+	important source of plant available ________. 
+------------
+|Question 1| SWQ3174
+------------
+	Description: 1. ___________ Testing will be performed by the people at 
+	client own locations (1M) 
+------------
+|Question 1| SWQ4103
+------------
+	Description: Q10: What is NOT a step of Formal inspections? 
+------------
+|Question 2| SSC2597
+------------
+	Description: The best known guide to parliamentary procedure is 
+------------
+|Question 3| SSC2680
+------------
+	Description: Which of the following is the best content for an 
+	answer to the interview question, “What do you consider your strengths?” 
+------------
+|Question 1| SSC2439
+------------
+	Description: A sentence that has unity communicates one main idea—one main 
+	thought 
+------------
+|Question 1| SSC668
+------------
+	Description: A harsh reminder may alienate the customer who intended to 
+	pay on time 
+------------
+|Question 1| SSC2085
+------------
+	Description: If you are responding to an open position that only 
+	has a post office box, research the business operations and job responsibilities applicable to the type of position described 
+------------
+|Question 1| SSC1453
+------------
+	Description: It is inappropriate to follow up an application letter when 
+	you have received a form acknowledgment indicating that they will get back to you 
+------------
+|Question 1| SSC2054
+------------
+	Description: Paraphrasing a speaker 
+------------
+|Question 2| SSC1664
+------------
+	Description: A proposal identifies a problem and proposes a solution 
+------------
+|Question 3| VNR4449
+------------
+	Description: mặt trận việt nam độc lập đồng minh được thành 
+	lập năm nào? 
+------------
+|Question 1| SSC839
+------------
+	Description: Start formulating questions for the speaker while he/she is still 
+	speaking so you are organized and ready to speak when the speaker stops talking 
+------------
+|Question 1| SSC1851
+------------
+	Description: unleashing greater creativity, generating energy among participants, helping employees solve 
+	complex problems 
+------------
+|Question 1| SSC947
+------------
+	Description: An interview is important because it can determine your career's 
+	future course. 
+------------
+|Question 1| SSC2611
+------------
+	Description: Analyzing a receiver’s knowledge will assist a writer in deciding 
+	whether to use the direct or indirect plan when organizing a message 
+------------
+|Question 1| SSC2048
+------------
+	Description: Which of the following would NOT be a �safe� topic 
+	at a social event before an American Marketing Association meeting 
+------------
+|Question 1| SSC2780
+------------
+	Description: T/F: Vermiculite and associated silicate clays have a net electropositive 
+	charge in slightly acid soils. 
+------------
+|Question 1| SSC1641
+------------
+	Description: Which of the following is a guide to be used 
+	in constructing the action section of persuasive messages? 
+Total: 20
+----------------------------------------------

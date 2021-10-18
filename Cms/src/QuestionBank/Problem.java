@@ -13,38 +13,28 @@ import java.io.IOException;
  * @author smileymask
  */
 public class Problem implements Comparable<Problem>{
-    public static String[] CategoryList= {"analysis","figure","Greedy algorithm","Dynamic programming","graph"};
-    public String id,Date,name,ShortDes,link,author;
-    public double mark;
-    public int Category;
+    public String id,Date,name,ShortDes,Key;
+    public String Category;
 public Problem() {
         this.id = "";
         this.Date = "";
         this.name = "";
         this.ShortDes = "";
-        this.link = "";
-        this.mark = 0;
-        this.Category = 0;
-        this.author="";
+        this.Key = "";
+        this.Category = "";
     }
-    public Problem(String id, String Date, String name, String ShortDes, String link,String author,double mark, int Category) {
+    public Problem(String id, String Date, String name, String key, String Category) {
         this.id = id;
         this.Date = Date;
         this.name = name;
-        this.ShortDes = ShortDes;
-        this.link = link;
-        this.mark = mark;
+        this.ShortDes = name.substring(0,name.length()/3);
+        this.Key = key;
         this.Category = Category;
-        this.author=author;
     }
 
-    public String getAuthor() {
-        return author;
-    }
+   
 
-    public void setAuthor(String author) {
-        this.author = author;
-    }
+   
 
     public String getId() {
         return id;
@@ -78,27 +68,21 @@ public Problem() {
         this.ShortDes = ShortDes;
     }
 
-    public String getLink() {
-        return link;
+    public String getKey() {
+        return Key;
     }
 
-    public void setLink(String link) {
-        this.link = link;
+    public void setKey(String link) {
+        this.Key = link;
     }
 
-    public double getMark() {
-        return mark;
-    }
-
-    public void setMark(double mark) {
-        this.mark = mark;
-    }
+   
 
     public String getCategory() {
-        return CategoryList[Category-1];
+        return this.Category;
     }
 
-    public void setCategory(int Category) {
+    public void setCategory(String Category) {
         this.Category = Category;
     }
     
@@ -109,7 +93,7 @@ public Problem() {
     
     @Override
     public String toString() {
-        return String.format("%5s|%10s|%20s|%25s|%5.1f|%20s|%s\n", getId(), getDate(), getName(), getAuthor(),getMark(),getCategory(),getLink());
+        return String.format("%15s|%10s|%10s|%50s|%s\n", getId(), getDate(),getCategory(),getShortDes(),getKey());
     }
 
     @Override

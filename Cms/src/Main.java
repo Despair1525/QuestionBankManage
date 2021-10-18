@@ -55,10 +55,7 @@ public class Main {
         }
 
     }
-public static void clearScreen() {  
-    System.out.print("\033[H\033[2J");  
-    System.out.flush();  
-}  
+
 
     public static void login() throws IOException, InterruptedException {
         Scanner input = new Scanner(System.in);
@@ -78,9 +75,6 @@ public static void clearScreen() {
     }
 
     public static void main(String[] args) throws IOException, InterruptedException {
-//        Problem a = new Problem("AB15", "15-08-2001", "hello", "ok","yeh", "yo", 0, 0);
-//        Problem b = new Problem("AB25", "15-08-2001", "hello", "ok","yeh", "yo", 0, 0);
-//        System.out.println(a.compareTo(b));
         
         Scanner input = new Scanner(System.in);
 
@@ -92,16 +86,15 @@ public static void clearScreen() {
         //------------------------------------------
         while (true) {
             System.out.println("====================ContestManagementSystem=====================");
+            System.out.println("== Number of Question: "+LP.sizeOfQUestionBank);
             System.out.println("1.Show information of Contestant");
             System.out.println("--------Manage the question-----------");
             System.out.println("2.Add a new problem to the Question Bank (QB) ");
             System.out.println("3.Delete a problem by ID");
-            System.out.println("4.A list of all available problems in the QB");
-            System.out.println("-------Make a Test --------");
+            System.out.println("4.A list of all available Question in the QB");
             System.out.println("5.Generate a new Contest");
-            System.out.println("6.Export Contest by ContestID ");
             System.out.println("================================================================");
-            System.out.println("8.Log Out");
+            System.out.println("6.Log Out");
             System.out.println("0.Exits");
             int choice = 0;
             while (true) {
@@ -115,7 +108,7 @@ public static void clearScreen() {
             }
             switch (choice) {
                 case 1: {
-                                        a.showInfor(id);
+                    a.showInfor(id);
 
                     check = check("Do you want to contunue process ? (Y/N): ");
                     if (!check) {
@@ -157,45 +150,28 @@ public static void clearScreen() {
                     break;
                 }
                 case 5: {
-
-                    b = b.GenerateContest(a.getNameInfo());
+                    int size;
+                    while (true) {
+                        try {
+                            System.out.print("Enter number of question: ");
+                            size = Integer.parseInt(input.nextLine().trim());
+                            break;
+                        } catch (NumberFormatException e) {
+                            System.out.println("Please enter number !");
+                        }
+                    }
+                    
+                    b = b.GenerateContest(a.getNameInfo(),size);
                     b.display();
-                    b.addContest(b);
                     if (check2()) {
                         b.export();
                     }
                     if (!check("Do you want to continue process ? (Y/N) : ")) {
                         System.exit(0);
-
                     }
-
                     break;
                 }
                 case 6: {
-                    b.displayList();
-                    while (true) {
-                        Contest c = b.getContest(LP);
-
-                        if (c.getId().compareTo("") == 0) {
-                            System.out.println("ID not Found !");
-                            if (!check("Do you want to continue  ? (Y/N) : ")) {
-                                break;
-                            }
-                        } else {
-                            c.display();
-                            if (check2()) {
-                                c.export();
-                            }
-                            if (!check("Do you want to continue process ? (Y/N) : ")) {
-                                System.exit(0);
-                            }
-                        }
-
-                    }
-                    break;
-                }
-
-                case 7: {
                     login();
                     break;
                 }    

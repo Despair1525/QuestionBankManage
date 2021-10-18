@@ -7,81 +7,89 @@ public class ListProblems {
 
     private static final String alpha = "abcdefghijklmnopqrstuvwxyz";
     private static final String alphaUpperCase = alpha.toUpperCase();
-    public static String[] CategoryList = {"analysis", "figure", "Greedy algorithm", "Dynamic programming", "graph"};
+    public static String[] CategoryList = {"PRO", "SSC", "SWQ", "SWR", "VNR"};
     private static final String digits = "0123456789";
     private static String name[] = new String[]{"Mạnh", "Minh", "Việt Anh", "Tiến", "Dương", "Anh", "Giang", "Thương", "Nam", "My", "Đạt", "Huyền", "Phúc", "Hiệp", "Thành", "Hà"};
     private static String Fname[] = new String[]{"Nguyễn", "Phan", "Cao", "Uchiha", "Phạm", "Bá", "Đào"};
     private static String Mname[] = new String[]{"Đức", "Thu", "Mạnh", "Lê", "Huyền", "Nguyệt", "Dương"};
-    private static String linkL[] = new String[]{"CodeSource.com", "Mathematics_for_new.com", "https://www.geeksforgeeks.org", "http://w3school.com"};
     private static final String ALPHA_NUMERIC = alphaUpperCase + digits;
 
     public final String fname = "question bank\\Qbs.txt";
+     public final String dir = "question bank\\";
     public ArrayList<Problem> list = new ArrayList<>();
     public RedBlackTree listOfProblem = new RedBlackTree();
     public final Random generator = new Random();
+    public int sizeOfQUestionBank;
 
-//    public void sortList(ArrayList<Problem> list) {
-//        Collections.sort(list, new Comparator<Problem>() {
-//            @Override
-//            public int compare(Problem o1, Problem o2) {
-//                return o1.getCategory().compareToIgnoreCase(o2.getCategory());
-//            }
-//        });
-//    }
-//
-//    public void sort() throws IOException {
-//        sortList(list);
-//    }
-
+    
+ public String reverseDate(String date) {
+        String list[] = date.split("-");
+        StringBuilder s = new StringBuilder();
+        for (int i = (list.length - 1); i >= 0; i--) {
+            if (i == 0) {
+                s.append(list[i]);
+                break;
+            }
+            s.append(list[i] + "-");
+        }
+        return s.toString();
+    }
     int randomNum(int min, int max) {
         return generator.nextInt((max - min) + 1) + min;
     }
+    String[] takeInfo(String str){
+        str =str.split("[.]")[0];
+        String[] part = str.split("(?<=\\D)(?=\\d)");
+        return part;
+    };
 
     public void loadFile() throws IOException {
+        int count=0;
         list.clear();
-        FileReader fr = new FileReader(fname);
-        BufferedReader br = new BufferedReader(fr);
         String s;
         String[] a;
         String xId, xDate, xName, xShortDes, xLink, xAuthor;
-        double xMark;
-        int xCategory = 0;
-        String Cate;
+        String xCategory ;
         Problem x = new Problem();
-        int count=0;
-        while (true) {
-
-//            try {
+        File folder = new File("question bank");
+        File[] listOfFiles = folder.listFiles();
+    for (File file : listOfFiles) {
+        if (file.isFile()) {
+            String f=file.getName();
+            if(f.equals("Qbs.txt")){
+            continue;
+            };  
+         String check= takeInfo(f)[0];
+        String fname =dir+""+f;
+        FileReader fr = new FileReader(fname);
+        BufferedReader br = new BufferedReader(fr);
+         while (true) {
+            try {
                 s = br.readLine();
                 if (s == null || s.compareTo("") == 0) {
                     break;
                 }
                 a = s.split("[|]");
-                xId = a[0].trim();
-                xDate = a[1].trim();
-                xName = a[2].trim();
-                xShortDes = a[3].trim();
-                xLink = a[4].trim();
-                xAuthor = a[5].trim();
-                xMark = Double.parseDouble(a[6].trim());
-                Cate = a[7].trim();
-                for (int i = 0; i < x.CategoryList.length; i++) {
-                    if (Cate.compareToIgnoreCase(x.CategoryList[i]) == 0) {
-                        xCategory = i + 1;
-                    }
-                }
-                x = new Problem(xId, xDate, xName, xShortDes, xAuthor, xLink, xMark, xCategory);
-
+                xId = check+count;
+                xDate = reverseDate(java.time.LocalDate.now().toString());
+                xName = a[0].trim();
+                String key =a[1].trim();
+                xCategory = check;
+                x = new Problem(xId, xDate, xName,key, xCategory);
                 list.add(x);
                 listOfProblem.insert(x);
-//            } catch (Exception e) {
-//                System.out.println(e.getLocalizedMessage());
-//            }
+                count +=1;
+            } catch (Exception e) {
+            }
         }
+        sizeOfQUestionBank=count;
         fr.close();
         br.close();
     }
+}    
+    }
 
+    
     public void saveFile() throws IOException {
         FileWriter fw = new FileWriter(fname, false);
         PrintWriter pw = new PrintWriter(fw);
@@ -89,7 +97,7 @@ public class ListProblems {
 //        sort();
         for (int i = 0; i < list.size(); i++) {
             x = list.get(i);
-            pw.printf("%5s | %10s | %10s | %10s |%10s|%10s|%.1f | %s\n", x.getId(), x.getDate(), x.getName(), x.getShortDes(), x.getAuthor(), x.getLink(), x.getMark(), x.getCategory());
+            pw.printf("%15s | %10s | %10s | %10s |%s\n", x.getId(), x.getDate(), x.getCategory(),x.getName(), x.getKey());
         }
         fw.close();
         pw.close();
@@ -128,55 +136,14 @@ public class ListProblems {
     }
 
     public void showProblem(Problem r) {
-        System.out.printf("%5s|%10s|%20s|%25s|%5s|%20s|%s\n", "ID", "Date", "Name", "Author", "Mark", "Category", "link");
-        System.out.printf("%5s|%10s|%20s|%25s|%5.1f|%20s|%s\n", r.getId(), r.getDate(), r.getName(), r.getAuthor(), r.getMark(), r.getCategory(), r.getLink());
+        System.out.printf("%15s|%20s|%20s|%s\n", "ID", "Date","Category", "Key");
+        System.out.printf("%15s|%20s|%20s|%s\n", r.getId(), r.getDate(), r.getCategory(),r.Key);
         Contest a = new Contest();
-        System.out.println("Short Description: ");
-        a.displayString(r.getShortDes());
+        System.out.println("ALL Description: ");
+        a.displayString(r.name);
     }
 
-    public void FormatData() throws IOException {
-        list.clear();
-        for (String x : CategoryList) {
-
-            FileReader fr = new FileReader("D:\\Ass_Cms\\Cms\\Problem type\\" + x + ".txt");
-            BufferedReader br = new BufferedReader(fr);
-            String desX;
-            int o = 1;
-            while (true) {
-                desX = br.readLine();
-                if (desX == null) {
-                    break;
-                }
-                if (desX.compareTo("") == 0) {
-                    break;
-                }
-                Problem a = new Problem();
-                String codeX = GenerateCode();
-                String dateX = GenerateDay();
-                String tach[] = x.split(" ");
-                String nameX = tach[0] + " Problem" + o;
-                o++;
-                String authorX = GenerateName();
-                String linkX = GenerateLink();
-                int typeX = 0;
-                int markX = GenerateMark();
-                for (int i = 0; i < CategoryList.length; i++) {
-                    if (CategoryList[i].compareToIgnoreCase(x) == 0) {
-                        typeX = i + 1;
-                    }
-                }
-                a = new Problem(codeX, dateX, nameX, desX, linkX, authorX, markX, typeX);
-                list.add(a);
-            }
-
-            fr.close();
-            br.close();
-        }
-        saveFile();
-
-    }
-
+   
    
 
 //    public void delete() throws IOException {
@@ -241,7 +208,7 @@ public class ListProblems {
         Scanner input = new Scanner(System.in);
         String xId, xDate, xName, xShortDes, xLink, xAuthor;
         double xMark;
-        int xCategory;
+        String xCategory;
         System.out.print("Enter problem Id: ");
         xId = input.nextLine().toUpperCase();
         Problem r= listOfProblem.find(xId);
@@ -249,21 +216,19 @@ public class ListProblems {
             try {
                 Contest lol = new Contest();
                 xDate = lol.date;
-                System.out.print("Enter problem Name: ");
+                System.out.print("Enter problem : ");
                 xName = input.nextLine();
-                System.out.print("Enter problem Short Description: ");
-                xShortDes = input.nextLine();
-                System.out.print("Enter problem Author : ");
+                int range =xName.length()/3;
+                xShortDes = xName.substring(0,range);
+                System.out.print("Enter problem Key: ");
                 xLink = input.nextLine();
-                System.out.print("Enter problem Link: ");
-                xAuthor = input.nextLine();
-                System.out.print("Enter problem Mark weight: ");
-                xMark = Double.parseDouble(input.nextLine());
-                System.out.println("(1.analysis,2.figure,3.Greedy algorithm,4.Dynamic programming,5.graph");
                 System.out.print("Enter problem Category: ");
-                xCategory = Integer.parseInt(input.nextLine());
-                Problem x = new Problem(xId, xDate, xName, xShortDes, xAuthor, xLink, xMark, xCategory);
+                xCategory = input.nextLine();
+                Problem x = new Problem(xId, xDate, xName, xLink,xCategory);
+                
                 list.add(x);
+                listOfProblem.insert(x);
+                sizeOfQUestionBank +=1;
                 saveFile();
             } catch (Exception e) {
                 System.out.println("ERROR : " + e.toString());
@@ -277,7 +242,49 @@ public class ListProblems {
 
 
 /// Generate Data 
-    public String GenerateCode() {
+   
+   
+    public String GenerateName() {
+        int a = randomNum(0, (name.length - 1));
+        int b = randomNum(0, (Fname.length - 1));
+        int c = randomNum(0, (Mname.length - 1));
+        StringBuilder s = new StringBuilder();
+        s.append(Fname[b] + " " + Mname[c] + " " + name[a]);
+        return s.toString();
+    }
+
+   
+
+   
+    int checkContains(int a,int[] arr){
+        for(int i=0;i<arr.length;i++){
+            if(arr[i] ==a) return i;
+        };
+    return -1;
+    };
+    public ArrayList<Problem> GenerateProblemList(int sizeList) {
+        Problem x= new Problem();
+        int[] indexLis = new int[sizeList];
+        int count=0;
+        for(int i=0;i<sizeList;i++){
+            indexLis[i]=-1;
+    };
+        ArrayList<Problem> a = new ArrayList<>();
+        while(count != sizeList){
+        int num = randomNum(0, (sizeOfQUestionBank- 1));
+        if(checkContains(num, indexLis)==-1){
+            x =this.list.get(num);
+            indexLis[count]= num;
+            count +=1;
+            a.add(x);
+        };
+        
+        };
+        
+        Collections.shuffle(a);
+        return a;
+    }
+public String GenerateCode() {
         StringBuilder s = new StringBuilder();
         Random random = new Random();
         int num = randomNum(0, alphaUpperCase.length() - 1);
@@ -290,84 +297,4 @@ public class ListProblems {
         }
         return s.toString();
     }
-
-    public String GenerateDay() {
-        StringBuilder s = new StringBuilder();
-        Random random = new Random();
-        int num = randomNum(1, 30);
-        s.append(num + "-");
-        num = randomNum(1, 10);
-        s.append(num + "-");
-        s.append("2020");
-        return s.toString();
-    }
-
-    public String GenerateName() {
-        int a = randomNum(0, (name.length - 1));
-        int b = randomNum(0, (Fname.length - 1));
-        int c = randomNum(0, (Mname.length - 1));
-        StringBuilder s = new StringBuilder();
-        s.append(Fname[b] + " " + Mname[c] + " " + name[a]);
-        return s.toString();
-    }
-
-    public String GenerateLink() {
-        StringBuilder s = new StringBuilder();
-        Random random = new Random();
-        int num = randomNum(0, linkL.length - 1);
-        s.append(linkL[num]);
-        return s.toString();
-    }
-
-    public int GenerateMark() {
-        Random random = new Random();
-        return randomNum(1, 5);
-    }
-    // Hàm lấy ra ngẫu nhiễn 5 problem:
-
-    public ArrayList<Problem> GenerateProblemList() {
-        ArrayList<Problem> a = new ArrayList<>();
-        ArrayList<Problem> anaList = new ArrayList<>();
-        ArrayList<Problem> fiList = new ArrayList<>();
-        ArrayList<Problem> greList = new ArrayList<>();
-        ArrayList<Problem> dyList = new ArrayList<>();
-        ArrayList<Problem> graList = new ArrayList<>();
-        for (Problem i : list) {
-            if (i.getCategory().compareToIgnoreCase("analysis") == 0) {
-                anaList.add(i);
-            } else if (i.getCategory().compareToIgnoreCase("figure") == 0) {
-                fiList.add(i);
-            } else if (i.getCategory().compareToIgnoreCase("Greedy algorithm") == 0) {
-                greList.add(i);
-            } else if (i.getCategory().compareToIgnoreCase("Dynamic programming") == 0) {
-                dyList.add(i);
-            } else if (i.getCategory().compareToIgnoreCase("graph") == 0) {
-                graList.add(i);
-            }
-        }
-        int num = 0;
-        if (anaList.size() != 0) {
-            num = randomNum(0, (anaList.size() - 1));
-            a.add(anaList.get(num));
-        }
-        if (fiList.size() != 0) {
-            num = randomNum(0, (fiList.size() - 1));
-            a.add(fiList.get(num));
-        }
-        if (greList.size() != 0) {
-            num = randomNum(0, (greList.size() - 1));
-            a.add(greList.get(num));
-        }
-        if (dyList.size() != 0) {
-            num = randomNum(0, (dyList.size() - 1));
-            a.add(dyList.get(num));
-        }
-        if (graList.size() != 0) {
-            num = randomNum(0, (graList.size() - 1));
-            a.add(graList.get(num));
-        }
-        Collections.shuffle(a);
-        return a;
-    }
-
 }

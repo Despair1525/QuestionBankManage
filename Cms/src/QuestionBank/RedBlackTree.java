@@ -189,7 +189,7 @@ void firstTravel(Node temp){
 };
 public void display(){
     System.out.println("------------------------------------------------------Question Bank--------------------------------------------------");
-//        System.out.printf("%5s|%10s|%20s|%25s|%5s|%20s|%s\n", "ID", "Date", "Name", "Author", "Mark", "Category", "link");
+        System.out.printf("%15s|%10s|%10s|%50s|%s\n", "ID", "Date", "Type", "Describe", "Key");
     if(root == null) {
         System.out.println("List is blank !");
         return;
