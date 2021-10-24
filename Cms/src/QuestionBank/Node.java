@@ -13,14 +13,21 @@ public class Node {
     Problem data;
     Node left;
     Node right;
-    char color;
+    int color;
     Node parent;
+public Node(){
+color =0;
+data=null;
+left =null;
+right =null;
+parent =null;
+};
 
     public Node(Problem data) {
         this.data = data;
         this.left = null;
         this.right = null;
-        this.color = 'R';
+        this.color = 1;
         this.parent = null;
     }
     

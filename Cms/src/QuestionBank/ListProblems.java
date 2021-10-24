@@ -144,39 +144,14 @@ public class ListProblems {
     }
 
    
-   
-
-//    public void delete() throws IOException {
-//        String xId;
-//        Scanner input = new Scanner(System.in);
-//        System.out.print("Enter Id: ");
-//        xId = input.nextLine().toUpperCase();
-//        if (!checkId(xId)) {
-//            int x = FindId(xId);
-//            list.remove(x);
-//            saveFile();
-//            System.out.println(" |Delete sucssess !|");
-//        } else {
-//            System.out.println("Id not Found !");
-//        }
-//    }
-//
-//    public boolean check(String mess) {
-//        Scanner input = new Scanner(System.in);
-//        String choice;
-//        while (true) {
-//            System.out.print(mess);
-//            choice = input.nextLine().toUpperCase().trim();
-//            if (choice.compareTo("Y") == 0 || choice.compareTo("1") == 0) {
-//                return true;
-//            } else if (choice.compareTo("N") == 0 || choice.compareTo("0") == 0) {
-//                return false;
-//            } else {
-//                System.out.println("Please enter again !");
-//            }
-//        }
-//
-//    }
+   public void delete(String id){
+      int check= listOfProblem.delete(id);
+       
+   if (check ==1){
+   sizeOfQUestionBank -=1;
+       System.out.println("Problem delete succsess ");
+   };
+   };
 
     
     public boolean checkDate(String s) {
@@ -203,14 +178,26 @@ public class ListProblems {
         }
         return r;
     }
+    public  String checkID(String mess){
+ Scanner input = new Scanner(System.in);
+        String choice;
+        while (true) {
+            System.out.print(mess);
+            choice = input.nextLine().toUpperCase().trim();
+            if (choice.matches("^(?=.*[A-Z])(?=.*[0-9])[A-Z0-9]+$")){
+            return choice;
+            };
+            System.out.println("ID must have number and string !");
+        }
+        
 
+};
     public void add() throws IOException { // 3.Add a new problem to the Question Bank (QB) 
         Scanner input = new Scanner(System.in);
         String xId, xDate, xName, xShortDes, xLink, xAuthor;
         double xMark;
         String xCategory;
-        System.out.print("Enter problem Id: ");
-        xId = input.nextLine().toUpperCase();
+        xId = checkID("Enter ID problem: ");
         Problem r= listOfProblem.find(xId);
         if (r==null) {
             try {
@@ -230,6 +217,7 @@ public class ListProblems {
                 listOfProblem.insert(x);
                 sizeOfQUestionBank +=1;
                 saveFile();
+                System.out.println("Add succsess");
             } catch (Exception e) {
                 System.out.println("ERROR : " + e.toString());
             }

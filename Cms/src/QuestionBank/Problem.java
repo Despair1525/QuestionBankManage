@@ -98,7 +98,8 @@ public Problem() {
 
     @Override
     public int compareTo(Problem o) {
-        String[] values1 = takeInfo(this.id);
+        try {
+            String[] values1 = takeInfo(this.id);
         String[] values2 = takeInfo(o.id);
         if( values1[0].equals(values2[0])){
             int a = Integer.parseInt(values1[1]);
@@ -110,6 +111,10 @@ public Problem() {
         int r=values1[0].compareTo(values2[0]);
         if(r<0) return -1;
         return 1;
+        } catch (Exception e) {
+            return 0;
+        }
+        
     }
  
     

@@ -119,7 +119,6 @@ public class Main {
 
                 case 2: {
                     LP.add();
-
                     check = check("Do you want to continue process ? (Y/N) : ");
                     if (check) {
                         break;
@@ -127,15 +126,18 @@ public class Main {
                         System.exit(0);
                     }
                 }
-//                case 3:{
-//                     LP.delete();
-//                    check = check("Do you want to continue process ? (Y/N) : ");
-//                    if (check) {
-//                        break;
-//                    } else {
-//                        System.exit(0);
-//                    }
-//                }
+                case 3:{
+                    LP.listOfProblem.display();
+                    System.out.print("Enter ID question you want to remove : ");
+                    String IDelete = input.nextLine();
+                    LP.delete(IDelete);
+                    check = check("Do you want to continue process ? (Y/N) : ");
+                    if (check) {
+                        break;
+                    } else {
+                        System.exit(0);
+                    }
+                }
                 case 4: {
                     LP.listOfProblem.display();
                     while (true) {
